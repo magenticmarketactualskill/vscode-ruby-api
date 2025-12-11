@@ -1,0 +1,88 @@
+{
+  "name": "vscode-ruby-api",
+  "displayName": "VS Code Ruby API",
+  "description": "Connect VS Code to Ruby applications via JSON-RPC-LD",
+  "version": "0.1.0",
+  "publisher": "manus-ai",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "VS Code Ruby API",
+      "properties": {
+        "vscodeRubyApi.mode": {
+          "type": "string",
+          "enum": ["local", "docker", "remote"],
+          "default": "local",
+          "description": "Connection mode"
+        },
+        "vscodeRubyApi.local.port": {
+          "type": "number",
+          "default": 7658,
+          "description": "Port for local mode"
+        },
+        "vscodeRubyApi.docker.host": {
+          "type": "string",
+          "default": "localhost",
+          "description": "Host for Docker mode"
+        },
+        "vscodeRubyApi.docker.port": {
+          "type": "number",
+          "default": 7658,
+          "description": "Port for Docker mode"
+        },
+        "vscodeRubyApi.remote.url": {
+          "type": "string",
+          "default": "",
+          "description": "URL for remote mode"
+        },
+        "vscodeRubyApi.remote.authType": {
+          "type": "string",
+          "enum": ["none", "apiKey", "jwt"],
+          "default": "apiKey",
+          "description": "Authentication type for remote mode"
+        },
+        "vscodeRubyApi.reconnect.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable automatic reconnection"
+        },
+        "vscodeRubyApi.reconnect.maxAttempts": {
+          "type": "number",
+          "default": 10,
+          "description": "Maximum reconnection attempts"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/test-electron": "^2.3.0",
+    "@vscode/vsce": "^2.22.0",
+    "eslint": "^8.50.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
